@@ -1,12 +1,18 @@
-use crate::utils::generic;
+extern crate percent_encoding;
+
+use percent_encoding::{utf8_percent_encode, AsciiSet, CONTROLS};
+
+// Used as part of the percent_encoding library
+const FRAGMENT: &AsciiSet = &CONTROLS.add(b' ').add(b'"').add(b'<').add(b'>').add(b'`');
 
 pub fn construct_twitter_url(query: &str) -> String {
     if query == "tw" {
-        // Check if it's just the short cut to twitter
-        let twitter_dotcom = generic::construct_generic_url("twitter.com");
+        let twitter_dotcom = "https://twitter.com";
+
         twitter_dotcom.to_string()
+
+    // Check if it looks like a Twitter profile
     } else if &query[..4] == "tw @" {
-        // Check if it looks like a Twitter profile
         construct_twitter_profile_url(&query[4..])
     } else {
         // Assume the other match is "tw sometext"
@@ -15,13 +21,13 @@ pub fn construct_twitter_url(query: &str) -> String {
     }
 }
 
-pub fn construct_twitter_profile_url(query: &str) -> String {
-    format!("https://twitter.com/{}", query)
+pub fn construct_twitter_profile_url(profile: &str) -> String {
+    format!("https://twitter.com/{}", profile)
 }
 
 pub fn construct_twitter_search_url(query: &str) -> String {
-    let twitter_search_url = generic::construct_generic_search_url("twitter.com", query);
-    twitter_search_url
+    let encoded_query = utf8_percent_encode(query, FRAGMENT).to_string();
+    format!("https://twitter.com/search?q={}", encoded_query)
 }
 
 #[cfg(test)]

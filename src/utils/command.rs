@@ -5,6 +5,12 @@ pub struct Command <'original_string> {
     rest: Option<Vec<&'original_string str>>,
 }
 
+#[derive(Debug, PartialEq)]
+pub struct PartialCommand<'original_string> {
+    cmd: &'original_string str,
+    rest: Option<&'original_string str>,
+}
+
 impl Command <'_>{
     pub fn new<'original_string>(command_string: &'original_string str) ->  Option<Command> {
         let command_string = command_string.trim();
