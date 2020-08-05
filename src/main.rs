@@ -40,7 +40,7 @@ fn search(cmd: String) -> Redirect {
 
     Redirect::to(redirect_url)
 }
-
+#[rustfmt::skip]
 fn main() {
     rocket::ignite()
         .mount("/", routes![index, search])

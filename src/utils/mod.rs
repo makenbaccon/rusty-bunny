@@ -1,6 +1,6 @@
+pub mod github;
 pub mod google;
 pub mod twitter;
-pub mod github;
 
 pub fn get_command_from_query_string(query_string: &str) -> &str {
     // If it has a space, we know that it is more than the command
