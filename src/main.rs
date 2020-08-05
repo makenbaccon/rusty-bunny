@@ -29,6 +29,7 @@ fn search(cmd: String) -> Redirect {
         "gh" => utils::github::construct_github_url(&cmd),
         "ih" => String::from("https://indiehackers.com"),
         "l8" => String::from("http://localhost:8000/"),
+        "hk" => String::from("http://https://dashboard.heroku.com/"),
         // fun tools
         "yt" => String::from("https://www.youtube.com/feed/subscriptions"),
         "rdt" => String::from("https://www.reddit.com/"),
